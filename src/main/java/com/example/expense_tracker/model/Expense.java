@@ -6,11 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @Entity
-public class Expense {
+public class Expense implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,15 +1,24 @@
 spring:
   application:
-    name: expense-tracker     # Application name
+    name: expense-tracker # Application name
   datasource:
-    url: jdbc:h2:mem:testdb   # Database connection URL (in-memory H2)
+    url: jdbc:h2:mem:testdb # Database connection URL (in-memory H2)
     driver-class-name: org.h2.Driver
     username: sa
     password: password
   h2:
     console:
-      enabled: true           # Enable H2’s web console
+      enabled: true # Enable H2’s web console
   jpa:
     hibernate:
-      ddl-auto: update        # Auto-update database schema based on your entities
-    show-sql: true            # Show generated SQL in console logs
+      ddl-auto: update # Auto-update database schema based on your entities
+    show-sql: true # Show generated SQL in console logs
+  kafka:
+    bootstrap-servers: localhost:9092 # Address of the Kafka broker
+    producer: # Kafka producer config — controls how your app sends messages.
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer # Serializer for the message key — converts key to bytes.
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # Serializer for the message value — converts value to bytes.
+#    consumer: # Kafka consumer config — used if your app receives messages from Kafka.
+#      group-id: expense-tracker-group # Consumer group ID. Kafka uses this to manage message delivery (offsets).
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # Deserializes the incoming message key from bytes to string.
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer # Deserializes the incoming message value from bytes to string.

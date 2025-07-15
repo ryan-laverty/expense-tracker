@@ -1,5 +1,6 @@
 package com.example.expense_tracker.controller;
 
+import com.example.expense_tracker.kafka.KafkaProducer;
 import com.example.expense_tracker.model.Expense;
 import com.example.expense_tracker.repository.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +13,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExpenseController {
     private final ExpenseRepository repo;
+    private final KafkaProducer kafkaProducer;
 
     @PostMapping
     public Expense createExpense(@RequestBody Expense expense) {
-        return repo.save(expense);
+        Expense saved = repo.save(expense);
+        kafkaProducer.sendExpense("expenses", saved);
+        return saved;
     }
 
     @GetMapping
