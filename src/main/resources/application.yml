@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: expense-tracker     # Application name
+  datasource:
+    url: jdbc:h2:mem:testdb   # Database connection URL (in-memory H2)
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true           # Enable H2’s web console
+  jpa:
+    hibernate:
+      ddl-auto: update        # Auto-update database schema based on your entities
+    show-sql: true            # Show generated SQL in console logs
